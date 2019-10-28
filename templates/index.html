@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1 class="my-4">Flask CRUD</h1>
+  {% if groceries|length < 1 %}
+  <p>There is nothing to buy for now.</p>
+  {% else %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Groceries</th>
+        <th>Added</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for grocery in groceries %}
+      <tr>
+        <td><a href="/update/{{ grocery.id }}">{{ grocery.name }}</a></td>
+        <td>{{ grocery.created_at.date() }}</td>
+        <td class="text-right"><a class="btn btn-danger btn-sm" href="/delete/{{ grocery.id }}" role="button">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  {% include 'snippets/form.html' %}
+</div>
+{% endblock content %}
